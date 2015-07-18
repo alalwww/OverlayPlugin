@@ -165,6 +165,9 @@ namespace RainbowMage.OverlayPlugin
         public SpellTimerOverlayConfig SpellTimerOverlayObsolete { get; set; }
         #endregion
 
+        public event EventHandler VisibleAllOverlaysChanged;
+        public event EventHandler ShowOverlayPluginButtonOffsetChanged;
+
         /// <summary>
         /// オーバーレイ設定のリスト。
         /// </summary>
@@ -179,6 +182,57 @@ namespace RainbowMage.OverlayPlugin
 
         [XmlElement("HideOverlaysWhenNotActive")]
         public bool HideOverlaysWhenNotActive { get; set; }
+
+        private bool visibleAllOverlays;
+        /// <summary>
+        /// 全てのオーバーレイを表示するかのフラグを取得または設定します。
+        /// </summary>
+        [XmlElement("VisibleAllOverlays")]
+        public bool VisibleAllOverlays
+        {
+            get
+            {
+                return this.visibleAllOverlays;
+            }
+            set
+            {
+                if (this.visibleAllOverlays != value)
+                {
+                    this.visibleAllOverlays = value;
+                    if (VisibleAllOverlaysChanged != null)
+                    {
+                        VisibleAllOverlaysChanged(this, EventArgs.Empty);
+                    }
+                }
+            }
+        }
+
+        private const int showOverlayPluginButtonOffsetDefault = 623;
+        private int showOverlayPluginButtonOffset = showOverlayPluginButtonOffsetDefault;
+        /// <summary>
+        /// 全てのオーバーレイを表示するかを切り替えるボタンの配置を決めるオフセット値を指定します。
+        /// </summary>
+        [XmlElement("ShowOverlayPluginButtonOffset")]
+        public int ShowOverlayPluginButtonOffset
+        {
+            get
+            {
+                return (showOverlayPluginButtonOffset > 0)
+                    ? showOverlayPluginButtonOffset
+                    : showOverlayPluginButtonOffsetDefault;
+            }
+            set
+            {
+                if (this.showOverlayPluginButtonOffset != value)
+                {
+                    showOverlayPluginButtonOffset = value;
+                    if (ShowOverlayPluginButtonOffsetChanged != null)
+                    {
+                        ShowOverlayPluginButtonOffsetChanged(this, EventArgs.Empty);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// 設定ファイルを生成したプラグインのバージョンを取得または設定します。
@@ -243,6 +297,7 @@ namespace RainbowMage.OverlayPlugin
 
             this.FollowLatestLog = false;
             this.HideOverlaysWhenNotActive = false;
+            this.VisibleAllOverlays = true;
             this.IsFirstLaunch = true;
         }
 
