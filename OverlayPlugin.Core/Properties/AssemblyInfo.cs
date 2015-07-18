@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("OverlayPlugin.Core")]
-[assembly: AssemblyDescription("Core assembly of the OverlayPlugin")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyTitle("OverlayPlugin.Core-unofficial")]
+[assembly: AssemblyDescription("Core assembly of the OverlayPlugin-unofficial")]
+[assembly: AssemblyConfiguration("unofficial")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OverlayPlugin")]
 [assembly: AssemblyCopyright("Copyright © RainbowMage 2014")]
