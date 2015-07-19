@@ -330,7 +330,10 @@ namespace RainbowMage.OverlayPlugin
         /// </summary>
         private void RemoveVisibleAllOverlaysChangeButton()
         {
-            if (this.visibleAllOverlaysChangeButton == null) return;
+            if (this.visibleAllOverlaysChangeButton == null)
+            {
+                return;
+            }
 
             var actForm = ActGlobals.oFormActMain;
             actForm.Resize -= this.formActMain_Resize;
@@ -341,7 +344,7 @@ namespace RainbowMage.OverlayPlugin
 
         private void formActMain_Resize(object sender, EventArgs e)
         {
-            var x = ActGlobals.oFormActMain.Size.Width - Config.ShowOverlayPluginButtonOffset;
+            var x = ActGlobals.oFormActMain.Size.Width - this.Config.ShowOverlayPluginButtonOffset;
             var y = 0;
             this.visibleAllOverlaysChangeButton.Location = new Point(x, y);
         }

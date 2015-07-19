@@ -207,8 +207,9 @@ namespace RainbowMage.OverlayPlugin
             }
         }
 
-        private const int showOverlayPluginButtonOffsetDefault = 623;
-        private int showOverlayPluginButtonOffset = showOverlayPluginButtonOffsetDefault;
+        // スペスペとTimeLineの固定位置より左になるオフセット値をデフォルトとしている
+        private const int SHOW_OVERLAY_PLUGIN_BUTTON_OFFSET_DEFAULT = 623;
+        private int showOverlayPluginButtonOffset = SHOW_OVERLAY_PLUGIN_BUTTON_OFFSET_DEFAULT;
         /// <summary>
         /// 全てのオーバーレイを表示するかを切り替えるボタンの配置を決めるオフセット値を指定します。
         /// </summary>
@@ -217,15 +218,20 @@ namespace RainbowMage.OverlayPlugin
         {
             get
             {
-                return (showOverlayPluginButtonOffset > 0)
-                    ? showOverlayPluginButtonOffset
-                    : showOverlayPluginButtonOffsetDefault;
+                if (this.showOverlayPluginButtonOffset > 0)
+                {
+                    return this.showOverlayPluginButtonOffset;
+                }
+                else
+                {
+                    return PluginConfig.SHOW_OVERLAY_PLUGIN_BUTTON_OFFSET_DEFAULT;
+                }
             }
             set
             {
                 if (this.showOverlayPluginButtonOffset != value)
                 {
-                    showOverlayPluginButtonOffset = value;
+                    this.showOverlayPluginButtonOffset = value;
                     if (ShowOverlayPluginButtonOffsetChanged != null)
                     {
                         ShowOverlayPluginButtonOffsetChanged(this, EventArgs.Empty);

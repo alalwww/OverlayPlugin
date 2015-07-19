@@ -46,18 +46,18 @@ namespace RainbowMage.OverlayPlugin
         {
             get
             {
-                return pluginConfig;
+                return this.pluginConfig;
             }
             set
             {
-                if (pluginConfig != value)
+                if (this.pluginConfig != value)
                 {
-                    if (pluginConfig != null)
+                    if (this.pluginConfig != null)
                     {
-                        PluginConfig.VisibleAllOverlaysChanged -= pluginConfig_visibleAllOverlaysChanged;
+                        this.pluginConfig.VisibleAllOverlaysChanged -= this.pluginConfig_VisibleAllOverlaysChanged;
                     }
-                    pluginConfig = value;
-                    PluginConfig.VisibleAllOverlaysChanged += pluginConfig_visibleAllOverlaysChanged;
+                    this.pluginConfig = value;
+                    this.pluginConfig.VisibleAllOverlaysChanged += this.pluginConfig_VisibleAllOverlaysChanged;
                 }
             }
         }
@@ -297,7 +297,7 @@ namespace RainbowMage.OverlayPlugin
             };
         }
 
-        private void pluginConfig_visibleAllOverlaysChanged(object sender, EventArgs e)
+        private void pluginConfig_VisibleAllOverlaysChanged(object sender, EventArgs e)
         {
             this.Overlay.Visible = PluginConfig.VisibleAllOverlays && Config.IsVisible;
         }
