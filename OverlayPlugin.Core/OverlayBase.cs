@@ -58,6 +58,7 @@ namespace RainbowMage.OverlayPlugin
                     }
                     this.pluginConfig = value;
                     this.pluginConfig.VisibleAllOverlaysChanged += this.pluginConfig_VisibleAllOverlaysChanged;
+                    this.pluginConfig_VisibleAllOverlaysChanged(null, null);
                 }
             }
         }
