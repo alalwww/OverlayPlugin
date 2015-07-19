@@ -38,10 +38,30 @@ namespace RainbowMage.OverlayPlugin
         /// </summary>
         public TConfig Config { get; private set; }
 
+        private IPluginConfig pluginConfig;
         /// <summary>
         /// プラグインの設定を取得します。
         /// </summary>
-        public IPluginConfig PluginConfig { get; set; }
+        public IPluginConfig PluginConfig
+        {
+            get
+            {
+                return this.pluginConfig;
+            }
+            set
+            {
+                if (this.pluginConfig != value)
+                {
+                    if (this.pluginConfig != null)
+                    {
+                        this.pluginConfig.VisibleAllOverlaysChanged -= this.pluginConfig_VisibleAllOverlaysChanged;
+                    }
+                    this.pluginConfig = value;
+                    this.pluginConfig.VisibleAllOverlaysChanged += this.pluginConfig_VisibleAllOverlaysChanged;
+                    this.pluginConfig_VisibleAllOverlaysChanged(null, null);
+                }
+            }
+        }
 
         protected OverlayBase(TConfig config, string name)
         {
@@ -229,7 +249,7 @@ namespace RainbowMage.OverlayPlugin
             {
                 try
                 {
-                    if (Config.IsVisible && PluginConfig.HideOverlaysWhenNotActive)
+                    if (Config.IsVisible && PluginConfig.VisibleAllOverlays && PluginConfig.HideOverlaysWhenNotActive)
                     {
                         uint pid;
                         var hWndFg = NativeMethods.GetForegroundWindow();
@@ -266,7 +286,7 @@ namespace RainbowMage.OverlayPlugin
         {
             this.Config.VisibleChanged += (o, e) =>
             {
-                this.Overlay.Visible = e.IsVisible;
+                this.Overlay.Visible = PluginConfig.VisibleAllOverlays && e.IsVisible;
             };
 
             this.Config.ClickThruChanged += (o, e) =>
@@ -278,6 +298,11 @@ namespace RainbowMage.OverlayPlugin
                 this.Overlay.Locked = e.IsLocked;
                 NotifyOverlayState();
             };
+        }
+
+        private void pluginConfig_VisibleAllOverlaysChanged(object sender, EventArgs e)
+        {
+            this.Overlay.Visible = PluginConfig.VisibleAllOverlays && Config.IsVisible;
         }
 
         /// <summary>
