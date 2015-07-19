@@ -241,7 +241,7 @@ namespace RainbowMage.OverlayPlugin
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            config.ShowOverlayPluginButtonOffset = Decimal.ToInt16(numericUpDown1.Value);
+            config.ShowOverlayPluginButtonOffset = Decimal.ToInt32(numericUpDown1.Value);
         }
     }
 }
